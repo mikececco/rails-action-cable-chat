@@ -1,11 +1,11 @@
-<div class="container chatroom">
+<div class="container chatroom" data-controller="chatroom-subscription">
   <h1>#<%= @chatroom.name %></h1>
-  <div class="form mx-auto">
+  <div class="form mx-auto" data-chatroom-subscription-target="messages">
     <%= simple_form_for [@chatroom, @message],  html: {class: "justify-content-center d-flex"} do |f| %>
       <div>
-      <%= f.input :content,  label: false,
-    placeholder: "Message ##{@chatroom.name}",
-    wrapper_html: {class: "flex-grow-1"} %>
+        <%= f.input :content,  label: false,
+        placeholder: "Message ##{@chatroom.name}",
+        wrapper_html: {class: "flex-grow-1"} %>
       </div>
       <div>
         <%= f.submit "Send", class:"btn btn-primary mx-2" %>
