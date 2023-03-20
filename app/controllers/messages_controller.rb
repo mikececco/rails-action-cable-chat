@@ -6,6 +6,10 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
+      ChatroomChannel.broadcast_to(
+        @chatroom,
+        "You have mail" # for everyone listening to this specific channel @channel, ping with this string
+      )
       redirect_to chatroom_path(@chatroom)
     else
       render "chatrooms/show", status: :unprocessable_entity
