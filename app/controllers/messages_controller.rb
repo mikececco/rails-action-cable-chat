@@ -5,16 +5,13 @@ class MessagesController < ApplicationController
     @message.chatroom = @chatroom
     @message.user = current_user
 
-    if @message.save
-      ChatroomChannel.broadcast_to(
-        @chatroom,
-        render_to_string(partial: "messages/message", locals: { message: @message })
-        # for everyone listening to this specific channel @channel, ping the new partial with @message just created
-      )
-      redirect_to chatroom_path(@chatroom)
-    else
-      render "chatrooms/show", status: :unprocessable_entity
-    end
+    @message.save
+    ChatroomChannel.broadcast_to(
+      @chatroom,
+      render_to_string(partial: "messages/message", locals: { message: @message })
+      # for everyone listening to this specific channel @channel, ping the new partial with @message just created
+    )
+    head :ok # dont send a view and redirect
   end
 
   private
