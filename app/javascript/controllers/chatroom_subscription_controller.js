@@ -12,7 +12,7 @@ export default class extends Controller {
     console.log(`Connecting to ActionCable channel id#${this.chatroomIdValue}`);
     // console.log(this.chatroomIdValue);
     // console.log(this.messagesTarget);
-    createConsumer().subscriptions.create(
+    this.channel = createConsumer().subscriptions.create(
       {
         channel: "ChatroomChannel",
         id: this.chatroomIdValue //pass id coming from HTML to the chatroom channel to know to which channel stream to
@@ -25,7 +25,13 @@ export default class extends Controller {
     )
   }
 
+  disconnect(){
+    console.log("Disconnecting");
+    this.channel.unsubscribe() //stop Actioncable sub
+  }
+
   resetForm(event) {
+    console.log(event);
     const form = event.target
     form.reset()
   }
