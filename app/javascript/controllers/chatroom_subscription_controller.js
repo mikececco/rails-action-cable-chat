@@ -19,9 +19,9 @@ export default class extends Controller {
       }, //creates consumer instance to start subscription, connection between web browser and radio tower ("Chatroom channel")
       {
         received: (data) => {
-          console.log(data);
+          this.messagesTarget.insertAdjacentHTML("beforeend", data);
         }
       }
-    ) //creates consumer instance to start subscription, connection between web browser and radio tower ("Chatroom channel")
+    )
   }
 }

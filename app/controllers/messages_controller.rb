@@ -8,7 +8,8 @@ class MessagesController < ApplicationController
     if @message.save
       ChatroomChannel.broadcast_to(
         @chatroom,
-        "You have mail" # for everyone listening to this specific channel @channel, ping with this string
+        render_to_string(partial: "messages/message", locals: { message: @message })
+        # for everyone listening to this specific channel @channel, ping the new partial with @message just created
       )
       redirect_to chatroom_path(@chatroom)
     else
